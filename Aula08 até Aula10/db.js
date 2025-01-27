@@ -21,7 +21,7 @@ const conectar = async () => {
         global.conection = conection;
 
         return conection;
-        
+
     } catch (error) {
         console.log(error);
     }
@@ -33,7 +33,7 @@ const conectar = async () => {
  */
 const todosClientes = async () => {
     const conection = await conectar();
-    const [linhas]  = await conection.query('SELECT * FROM cliente_node');
+    const [linhas] = await conection.query('SELECT * FROM cliente_node');
     return await linhas;
 }
 
@@ -42,7 +42,7 @@ const todosClientes = async () => {
  * @param {import('./tipos').Cliente} cliente O cliente a ser inserido.
  * @returns {Promise<import('mysql2').Result>} A Promise que resolve com o resultado da inserção.
  */
-const insertCliente = async(cliente) => {
+const insertCliente = async (cliente) => {
     const conection = await conectar();
     const sql = 'INSERT INTO cliente_node (nome, idade) VALUES (?, ?)';
     const valores = [cliente.nome, cliente.idade];
@@ -50,4 +50,32 @@ const insertCliente = async(cliente) => {
     return result;
 }
 
-module.exports = {todosClientes, insertCliente};
+
+/**
+ * Atualiza um cliente na tabela cliente_node.
+ * @param {number} id O ID do cliente a ser atualizado.
+ * @param {import('./tipos').Cliente} cliente O cliente atualizado.
+ * @returns {Promise<import('mysql2').Result>} A Promise que resolve com o resultado da atualização.
+ */
+const updateCliente = async (id, cliente) => {
+    const Connection = await conectar();
+    const sql = 'UPDATE cliente_node SET nome = ?, idade = ? WHERE id = ?';
+    const valores = [cliente.nome, cliente.idade, id];
+    const [result] = await Connection.query(sql, valores);
+    return result;
+}
+
+/**
+ * Deleta um cliente da tabela cliente_node.
+ * @param {number} id O ID do cliente a ser deletado.
+ * @returns {Promise<import('mysql2').Result>} A Promise que resolve com o resultado da deleção.
+ */
+const deleteCliente = async (id) => {
+    const Connection = await conectar();
+    const sql = 'DELETE FROM cliente_node WHERE id = ?';
+    const valor = [id];
+    const [result] = await Connection.query(sql, valor);
+    return result;
+}
+
+module.exports = { todosClientes, insertCliente, updateCliente, deleteCliente };
