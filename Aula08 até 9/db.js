@@ -37,4 +37,17 @@ const todosClientes = async () => {
     return await linhas;
 }
 
-module.exports = {todosClientes};
+/**
+ * Insere um cliente na tabela cliente_node.
+ * @param {import('./tipos').Cliente} cliente O cliente a ser inserido.
+ * @returns {Promise<import('mysql2').Result>} A Promise que resolve com o resultado da inserção.
+ */
+const insertCliente = async(cliente) => {
+    const conection = await conectar();
+    const sql = 'INSERT INTO cliente_node (nome, idade) VALUES (?, ?)';
+    const valores = [cliente.nome, cliente.idade];
+    const [result] = await conection.query(sql, valores);
+    return result;
+}
+
+module.exports = {todosClientes, insertCliente};
