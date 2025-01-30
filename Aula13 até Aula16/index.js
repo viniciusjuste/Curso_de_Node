@@ -30,12 +30,18 @@ async function run() {
     // const resultado = await collection.insertOne(novoCurso);
     // console.log("Novo registro criado com ID:", resultado.insertedId);
 
+
+
+
     // const cursoFind = await collection.findOne({});
     // if (!cursoFind) {
     //   console.log("Nenhum registro encontrado.");
     //   return;
     // }
     // console.log(`Registro encontrado: ${JSON.stringify(cursoFind)}`);
+
+
+
 
     // const cursos = await collection.find({}, { projection: { canal: 0 } }).toArray();
     // if (cursos.length === 0) {
@@ -44,14 +50,26 @@ async function run() {
     // }
     // console.log("Todos os registros: " , cursos[0]);
 
-    const query = {nome: /N./};
-    const cursos = await collection.find(query, { projection: { canal: 0 } }).toArray();
+
+
+
+    // const query = {nome: /N./};
+    // const cursos = await collection.find(query, { projection: { canal: 0 } }).toArray();
+    // if (cursos.length === 0) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log("Todos os registros: " , cursos);
+
+
+    const ordenacao = {curso : -1};
+    const query = {};
+    const cursos = await collection.find(query).sort(ordenacao).toArray();
     if (cursos.length === 0) {
       console.log("Nenhum registro encontrado.");
       return;
     }
-    console.log("Todos os registros: " , cursos);
-
+    console.log("Todos os registros: ", cursos);
   } catch (erro) {
     console.error("Erro ao conectar:", erro);
   } finally {
