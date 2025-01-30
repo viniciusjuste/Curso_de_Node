@@ -16,7 +16,6 @@ const client = new MongoClient(uri, {
  * O novo curso contém informações sobre o nome e o canal.
  * Em caso de erro durante a conexão ou inserção, o erro é registrado no console.
  */
-
 async function run() {
   try {
     console.log("Tentando conectar ao MongoDB...");
@@ -26,10 +25,26 @@ async function run() {
     const database = client.db("cfbcursos"); // Nome do banco de dados
     const collection = database.collection("cursos"); // Nome da coleção
 
-    const novoCurso = { nome: "Node.js", canal: "CFB Cursos" };
+    // const novoCurso = { nome: "Node.js", canal: "CFB Cursos" };
 
-    const resultado = await collection.insertOne(novoCurso);
-    console.log("Novo registro criado com ID:", resultado.insertedId);
+    // const resultado = await collection.insertOne(novoCurso);
+    // console.log("Novo registro criado com ID:", resultado.insertedId);
+
+    // const cursoFind = await collection.findOne({});
+    // if (!cursoFind) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log(`Registro encontrado: ${JSON.stringify(cursoFind)}`);
+
+
+    const cursos = await collection.find({}, { projection: { canal: 0 } }).toArray();
+    if (cursos.length === 0) {
+      console.log("Nenhum registro encontrado.");
+      return;
+    }
+    console.log("Todos os registros: " , cursos[0]);
+
 
   } catch (erro) {
     console.error("Erro ao conectar:", erro);
