@@ -25,7 +25,7 @@ async function run() {
     const database = client.db("cfbcursos"); // Nome do banco de dados
     const collection = database.collection("cursos"); // Nome da coleção
 
-    // const novoCurso = { nome: "Node.js", canal: "CFB Cursos" };
+    // const novoCurso = { nome: "Java", canal: "CFB Cursos" };
 
     // const resultado = await collection.insertOne(novoCurso);
     // console.log("Novo registro criado com ID:", resultado.insertedId);
@@ -37,14 +37,20 @@ async function run() {
     // }
     // console.log(`Registro encontrado: ${JSON.stringify(cursoFind)}`);
 
+    // const cursos = await collection.find({}, { projection: { canal: 0 } }).toArray();
+    // if (cursos.length === 0) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log("Todos os registros: " , cursos[0]);
 
-    const cursos = await collection.find({}, { projection: { canal: 0 } }).toArray();
+    const query = {nome: /N./};
+    const cursos = await collection.find(query, { projection: { canal: 0 } }).toArray();
     if (cursos.length === 0) {
       console.log("Nenhum registro encontrado.");
       return;
     }
-    console.log("Todos os registros: " , cursos[0]);
-
+    console.log("Todos os registros: " , cursos);
 
   } catch (erro) {
     console.error("Erro ao conectar:", erro);
