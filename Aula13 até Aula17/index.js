@@ -62,14 +62,39 @@ async function run() {
     // console.log("Todos os registros: " , cursos);
 
 
-    const ordenacao = {curso : -1};
-    const query = {};
-    const cursos = await collection.find(query).sort(ordenacao).toArray();
+    // const ordenacao = {curso : -1};
+    // const query = {};
+    // const cursos = await collection.find(query).sort(ordenacao).toArray();
+    // if (cursos.length === 0) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log("Todos os registros: ", cursos);
+
+
+    // let query = {nome : "Node.js"};
+    // const cursos = await collection.deleteOne(query);
+    // if (cursos.length === 0) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log("Curso deletado");
+
+    let query = {nome : /J./};
+    const cursos = await collection.deleteMany(query);
     if (cursos.length === 0) {
       console.log("Nenhum registro encontrado.");
       return;
     }
-    console.log("Todos os registros: ", cursos);
+    console.log("Curso deletado");
+
+    query = {};
+    const allCursos = await collection.find(query, { projection: { canal: 0 } }).toArray();
+    if (cursos.length === 0) {
+      console.log("Nenhum registro encontrado.");
+      return;
+    }
+    console.log("Todos os registros: " , allCursos);
   } catch (erro) {
     console.error("Erro ao conectar:", erro);
   } finally {
