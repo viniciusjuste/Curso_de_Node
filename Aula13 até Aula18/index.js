@@ -25,10 +25,21 @@ async function run() {
     const database = client.db("cfbcursos"); // Nome do banco de dados
     const collection = database.collection("cursos"); // Nome da coleção
 
-    // const novoCurso = { nome: "Java", canal: "CFB Cursos" };
+    // const novoCurso = { nome: "Angular", canal: "CFB Cursos" };
 
     // const resultado = await collection.insertOne(novoCurso);
     // console.log("Novo registro criado com ID:", resultado.insertedId);
+
+
+
+    // const obj = [
+    //   {nome: "Angular", canal: "CFB Cursos"},
+    //   {nome: "React", canal: "CFB Cursos"},
+    //   {nome: "Vue", canal: "CFB Cursos"}
+    // ]
+
+    // const addCursos = await collection.insertMany(obj);
+    // console.log(addCursos.insertedCount + " registros inseridos.");
 
 
 
@@ -62,6 +73,8 @@ async function run() {
     // console.log("Todos os registros: " , cursos);
 
 
+
+
     // const ordenacao = {curso : -1};
     // const query = {};
     // const cursos = await collection.find(query).sort(ordenacao).toArray();
@@ -72,6 +85,8 @@ async function run() {
     // console.log("Todos os registros: ", cursos);
 
 
+
+
     // let query = {nome : "Node.js"};
     // const cursos = await collection.deleteOne(query);
     // if (cursos.length === 0) {
@@ -80,22 +95,36 @@ async function run() {
     // }
     // console.log("Curso deletado");
 
-    let query = {nome : /J./};
-    const cursos = await collection.deleteMany(query);
-    if (cursos.length === 0) {
-      console.log("Nenhum registro encontrado.");
-      return;
-    }
-    console.log("Curso deletado");
+    // let query = {nome : /J./};
+    // const cursos = await collection.deleteMany(query);
+    // if (cursos.length === 0) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log("Curso deletado");
 
-    query = {};
-    const allCursos = await collection.find(query, { projection: { canal: 0 } }).toArray();
-    if (cursos.length === 0) {
-      console.log("Nenhum registro encontrado.");
-      return;
-    }
-    console.log("Todos os registros: " , allCursos);
-  } catch (erro) {
+
+
+
+    // query = {};
+    // const allCursos = await collection.find(query, { projection: { canal: 0 } }).toArray();
+    // if (cursos.length === 0) {
+    //   console.log("Nenhum registro encontrado.");
+    //   return;
+    // }
+    // console.log("Todos os registros: " , allCursos);
+
+
+
+
+    // const obj = {nome: "Java"}
+
+    // const deleteCursos = await collection.deleteMany(obj);
+    // console.log(deleteCursos.deletedCount + " registros deletados.");
+  }
+
+
+  catch (erro) {
     console.error("Erro ao conectar:", erro);
   } finally {
     console.log("Fechando conexão...");
