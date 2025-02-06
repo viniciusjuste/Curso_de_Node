@@ -133,10 +133,22 @@ async function run() {
 
 
 
-    const query = {nome: "Java 2025"};
-    const newQuery = { $set: { nome: "Java 2020" } }
-    const updateCurso = await collection.updateMany(query, newQuery)
-    console.log(updateCurso.modifiedCount + " registros atualizados.");
+    // const query = {nome: "Java 2025"};
+    // const newQuery = { $set: { nome: "Java 2020" } }
+    // const updateCurso = await collection.updateMany(query, newQuery)
+    // console.log(updateCurso.modifiedCount + " registros atualizados.");
+
+
+    const query = {};
+    const limite = 2;
+
+    const allCursos = await collection.find(query).limit(limite).toArray();
+    if (allCursos.length === 0) {
+      console.log("Nenhum registro encontrado.");
+      return;
+    }
+    console.log("Todos os registros: " , allCursos);
+
   }
 
 
