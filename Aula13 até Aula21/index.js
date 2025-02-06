@@ -121,6 +121,22 @@ async function run() {
 
     // const deleteCursos = await collection.deleteMany(obj);
     // console.log(deleteCursos.deletedCount + " registros deletados.");
+
+
+
+
+    // const query = {nome: "Java"};
+    // const newQuery = { $set: { nome: "Java 2025" } }
+    // const updateCurso = await collection.updateOne(query, newQuery)
+    // console.log(updateCurso.modifiedCount + " registros atualizados.");
+
+
+
+
+    const query = {nome: "Java 2025"};
+    const newQuery = { $set: { nome: "Java 2020" } }
+    const updateCurso = await collection.updateMany(query, newQuery)
+    console.log(updateCurso.modifiedCount + " registros atualizados.");
   }
 
 
